@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root> 
+  <concepts>
+    <concept name="空调">空调</concept>
+    <concept name="异味">异味 霉味 酸味 汽油味 馊味 臭味 塑料味 刺鼻 味道 氟利昂 有味 油味 发臭 发酸 发霉 味道 发馊 难闻</concept>
+  	<concept name="出风口">风口 出风口 出风 风栏 出风栏</concept>
+  	<concept name="属性">出风 风向 风速 风量</concept>
+  	<concept name="后排">后 后排 后面 背后 后座 后背 二排 </concept>
+  	<concept name="效果">制冷 制热 风速 风向 风量 冷风 暖风 凉风 热风 温风 出风</concept>
+  	<concept name="评价">冷 凉 热 暖 暖和</concept>
+  	<concept name="自动">自动 智能 聪明</concept>
+  	<concept name="噪音">异响 异音 震动声 噪音 噪声 音大 音很大 音特大 音特别大 吵 发响 (风扇)?(声|音)(很|特|特别)(大|吵)</concept>
+  	<concept name="差评">慢 不好 差 小 弱</concept>
+  	<concept name="否定">不|不能|无法|没有</concept>
+  	<concept name="一般故障">故障 有问题 有毛病 有病 不工作 无效 失灵 坏了</concept>
+  	<concept name="配件">风扇 扇叶 滤芯 面板 压缩机 风门 电机 出风口 风口 风栏 轴承 风挡 玻璃 冷凝器 膨胀阅 节流孔 干燥罐 蒸发器 循环系统 橡胶管 软管 制冷剂 </concept>
+  </concepts>
+  <eventAdd name="空调整体评价" id="1">
+  	<concept name="空调负面单概念">空调不冷 空调不足</concept>
+	<concept name="空调正面单概念">空调启动记忆功能实用 全自动分区空调很好</concept>  
+  	<concept name="整体评价负面">增加油耗 不给力 风量小 不制?冷 空气流通不佳 声音太大 松动 不行 一般 不冷 不管用 不够力 动力不足 (油耗|噪音|声音)大 冷的慢 不给力 启动慢 风量小 (耗|费)油 制(冷|热)(效果)?(太|很)?(不好|差|烂|挫|奇差无比|慢) 不凉快 不够冷</concept>
+  	<concept name="整体评价正面">制(冷|热)(速度)?快 防止结雾 可以 还可以 没得说 不错 好 管用 实用 性价比高 制(冷|热)(效果)?(太|很)?(好|快) 安静 没有声音 动力足 油耗低 对动力没影响</concept>
+  	<template name="000">空调负面单概念</template>
+  	<template name="000">空调正面单概念</template>
+  	<template name="000">空调+整体评价负面</template>
+  	<template name="000">空调+整体评价正面</template>
+  </eventAdd>
+  <eventAdd name="空调异味" id="2">
+  	<template name="000">空调+异味</template>
+  </eventAdd>
+  <eventAdd name="空调出风口" id="3">
+  	<concept name="空调出风口负面">位置不佳 少 风向不能调节 不出风 上部出风调不出来 抖动</concept>
+  	<template name="000">空调+出风口+空调出风口负面</template>
+  	<template name="000">空调+属性+空调出风口负面</template>
+  </eventAdd>
+  <eventAdd name="后排空调效果" id="4">
+  	<concept name="后排空调效果负面">完全不冷 (冷|热)的不够快 标配没有后排出风口 风量小</concept>
+  	<concept name="后排空调效果正面">有独立出风口 可冷暖控制</concept>
+  	<template name="000">后排+空调+后排空调效果负面</template>
+  	<template name="000">后排+出风口+后排空调效果负面</template>
+  	<template name="000">后排+效果+后排空调效果负面</template>
+  	<template name="000">后排+空调+后排空调效果正面</template>
+  </eventAdd>	
+  <eventAdd name="自动空调" id="5">
+  	<concept name="自动空调负面">不易理解 不易操作 显示不清 影响电池寿命 天冷时自动启动吹冷风 风速不自动 没用 看不懂 不够智能 设计不(太|够)?合理</concept>
+  	<concept name="自动空调正面">根据空气质量自动切换</concept>
+  	<template name="000">空调+自动+自动空调负面</template>
+  	<template name="000">自动+空调+自动空调负面</template>
+  	<template name="000">空调+自动+自动空调正面</template>
+  	<template name="000">自动+空调+自动空调正面</template>
+  </eventAdd>
+  <eventAdd name="空气循环模式" id="6">
+  	<concept name="空气循环">(空气)?(内|外)循环(模式)?</concept>
+  	<concept name="空气循环模式负面">(无法|没办法|不能)(自动)?(转换|切换) 混乱 自动跳</concept>
+  	<template name="000">空气循环+空气循环模式负面</template>
+  </eventAdd>
+  <eventAdd name="空调故障" id="7">
+  	<template name="000">空调+否定+效果</template>
+  	<template name="000">空调+效果+差评</template>
+  	<template name="000">空调+噪音</template>
+  	<template name="000">空调+异味</template>
+  	<template name="000">空调+一般故障</template>
+  </eventAdd>
+  <eventAdd name="空调配件" id="8">
+  	<concept name="空调配件负面">价格高 质量差</concept>
+  	<concept name="空调配件正面">可过滤pm2.5</concept>
+  	<template name="000">空调+配件+噪音</template>
+  	<template name="000">空调+配件+一般故障</template>
+  	<template name="000">空调+配件+空调配件负面</template>
+  	<template name="000">空调+配件+空调配件正面</template>
+  </eventAdd>
+</root>
