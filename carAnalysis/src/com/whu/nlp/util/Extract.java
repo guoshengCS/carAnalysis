@@ -51,12 +51,14 @@ public class Extract
 		reObject.setContent(labeledText);
 		HashMap<String, String> name2text=new HashMap<String, String>();
 		for(Event event:eventResults.keySet()){
-			String textParts="";
+			/*String textParts="";
 			for(MatchedResult matchedResult:eventResults.get(event)){
-				
 				textParts+=input.substring(matchedResult.getStart(),matchedResult.getEnd());
 			}
-			name2text.put(eventID2Name.get(event.getEventID()),textParts);
+			name2text.put(eventID2Name.get(event.getEventID()),textParts);*/
+			HashMap<Event,ArrayList<MatchedResult>> eventResults1class=new HashMap<Event, ArrayList<MatchedResult>>();
+			eventResults1class.put(event, eventResults.get(event));
+			name2text.put(eventID2Name.get(event.getEventID()),Test.lableText(input, eventResults1class));
 		}
 		reObject.setResult(name2text);
 		return reObject;
@@ -68,8 +70,10 @@ public class Extract
 	public static void main(String[] args) throws Exception
 	{
 		Extract extract=new Extract();
-		Myobject myobject=extract.extract("宝马空调不够力");
+		Myobject myobject=extract.extract("出风慢");
 		System.out.println(myobject.getContent());
-		System.out.println(myobject.getResult().get("overall"));
+		System.out.println(myobject.getResult().get("smell"));
+		System.out.println(myobject.getResult().get("parts"));
+		
 	}
 }

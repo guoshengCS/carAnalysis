@@ -94,7 +94,7 @@ public class Test implements Callable<String>{
 
 		WebPageAnalyzer.events = WebPageAnalyzer.eventList.getEvents(); // 获取事件
 		Event event_init = null;
-		for (int i = 0; i < WebPageAnalyzer.events.size() - 1; i++) {
+		for (int i = 0; i < WebPageAnalyzer.events.size(); i++) {
 			event_init = (Event) WebPageAnalyzer.events.get(i);
 			ArrayList<Template> Template = event_init.getTemplates();
 			for (Template template : Template) {
@@ -416,8 +416,8 @@ public class Test implements Callable<String>{
 			}
 			StringBuffer htmlText=new StringBuffer(text);
 			for(int j=mergedResults.size()-1;j>=0;j--){
-				htmlText.insert(mergedResults.get(j).getEnd(), "</span>");
-				htmlText.insert(mergedResults.get(j).getStart(), "<span class=\"eventlabel\">");
+				htmlText.insert(mergedResults.get(j).getEnd(), "</font>");
+				htmlText.insert(mergedResults.get(j).getStart(), "<font color=\"red\">");
 			}	
 			return htmlText.toString();
 		}else {
@@ -527,8 +527,9 @@ public class Test implements Callable<String>{
 	}
 	public static HashMap<Event,ArrayList<MatchedResult>> extractEvent(Page page){
 		List<Event> events=WebPageAnalyzer.eventList.getEvents();
+		//System.out.println(events.size());
 		HashMap<Event,ArrayList<MatchedResult>> resultsMap=new HashMap<Event,ArrayList<MatchedResult>>();
-		for (int i = 0; i < events.size() - 1; i++) {
+		for (int i = 0; i < events.size() ; i++) {
 
 			Event e = events.get(i);
 //			try {
@@ -554,17 +555,25 @@ public class Test implements Callable<String>{
 		for (String kName : WebPageAnalyzer.global_concept.keySet()) {
 			WebPageAnalyzer.global_concept.get(kName).getResultMaps().remove(page.getId());
 		}
+		/*List<Event> event2remove=new ArrayList<Event>();
 		for(Event event:resultsMap.keySet()){
 			ArrayList<MatchedResult> eventResults=resultsMap.get(event);
 			ArrayList<MatchedResult> result2remove=new ArrayList<MatchedResult>();
 			for(MatchedResult mr:eventResults){
 				int resfirst = Math.max(mr.getStart()-30, 0);
-				if(!page.getContent().substring(resfirst,mr.getStart()).contains("宝马")){
+				String context=page.getContent().substring(resfirst,mr.getStart());
+				if(!context.contains("宝马")&&!context.contains("新三系")){
 					result2remove.add(mr);
 				}
 			}
 			eventResults.removeAll(result2remove);
+			if(eventResults.size()==0){
+				event2remove.add(event);
+			}
 		}
+		for(Event event:event2remove){
+			resultsMap.remove(event);
+		}*/
 		return resultsMap;
 	}
 	/**
@@ -1056,13 +1065,13 @@ public class Test implements Callable<String>{
 //		extractEvent("Copy of 所有修改.xml", "testContent1.txt");
 //		addRuleFromXML("ontology_db.xml",true);
 //		addRuleFromXML("finalAdd.xml",false);
-
+		System.out.println(WebPageAnalyzer.conceptPublic);
 //		System.out.println("媒体曝广".matches("媒体(?!.{0,4}?(曝|报道|：|表示|称|核实|质疑|广泛|称|公布|盘点|求助))"));
 //		System.exit(0);
 		//addRuleFromXML("ontology_car.xml",true);
 		//extractEvent("data");
 //		outputOntology();
-		extractEvent("finalAdd.xml", "测试.txt");
+		//extractEvent("finalAdd.xml", "测试.txt");
 		//writeTestData(32,"党政","2015-07-29 15:00:00","2015-07-30 15:00:00",100);
 		/*Thread.sleep(8000);
 		WebPageAnalyzer.refreshOntology();
