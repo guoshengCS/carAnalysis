@@ -70,7 +70,7 @@ public class Extract
 	public static void main(String[] args) throws Exception
 	{
 		Extract extract=new Extract();
-		Myobject myobject=extract.extract("出风慢");
+		Myobject myobject=extract.extract("BMW出风慢");
 		System.out.println(myobject.getContent());
 		System.out.println(myobject.getResult().get("smell"));
 		System.out.println(myobject.getResult().get("parts"));
