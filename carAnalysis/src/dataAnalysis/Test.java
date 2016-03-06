@@ -549,7 +549,7 @@ public class Test implements Callable<String>{
 				}
 //			}
 		}
-		for (int i = 0; i < events.size() - 1; i++) {
+		for (int i = 0; i < events.size() ; i++) {
 			events.get(i).cleanMap(page.getId());
 		}
 		for (String kName : WebPageAnalyzer.global_concept.keySet()) {
