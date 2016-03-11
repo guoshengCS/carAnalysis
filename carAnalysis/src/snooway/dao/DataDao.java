@@ -2099,4 +2099,26 @@ public class DataDao {
 		return page;
 	}
 	
+	public String insertCarEvent(String fileName,String eventName,String content,int polarity){
+		String id=UUID.randomUUID().toString().replaceAll("-", "");
+		PoolConection pl=null;
+		try {
+			pl = new PoolConection(poolconcfg_ontology.getDrv(),poolconcfg_ontology.getUrl(),poolconcfg_ontology.getUsername(),poolconcfg_ontology.getPassword(),2);
+			String insertSql = "insert into wdyq_eventnews(id,fileName,eventName,content,polarity) values(?,?,?,?,?)";
+			pl.prepareSql(insertSql);
+			pl.setString(id);
+			pl.setString(fileName);
+			pl.setString(eventName);
+			pl.setString(content);
+			pl.setInt(polarity);;
+			pl.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			id=null;
+		} finally {
+			if (pl != null)
+				pl.close();
+		}
+		return id;
+	}
 }

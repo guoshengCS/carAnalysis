@@ -46,6 +46,154 @@ public class TempEventMatcher {
      * @param templates 当前事件剩余模板
      * @return 匹配到的结果
      */
+	public ArrayList<MatchedResult> find(String src,Event e,String pageId,ArrayList<Template> templates,String[] templateName) {
+		if(isTest){
+			System.out.println(src+"::::"+e.getEventID());
+			System.out.println("模版数量："+templates.size());
+		}
+		while(templates.size()>0)
+		{
+//			for(KeywordGroup k : templates.get(i).getConcepts())	//匹配模板包含的所有概念
+//			{
+//				getConceptmap(k,templates.get(i),src,used,pageId);
+//			}
+			
+
+			ArrayList<String> op_queue = new ArrayList<String>();
+			Stack<ConceptTable> table_stack = new Stack<ConceptTable>();
+			String rule = templates.get(0).getTemplateRule();
+			if(isTest)
+				System.out.println("模版规则："+rule);
+			Pattern templateP = Pattern.compile("(\\{\\d*?\\}|\\(|\\)|\\[|\\]|\\+)");
+			String[] templaterule = templateP.split(rule);
+			int null_num = 0;
+			//将字符串表示的概念转化为用table表示的概念,并倒序压入一个由table构成的表栈
+			//同时将操作符按顺序加入一个队列
+			if(isTest)
+				System.out.print("概念：");
+			boolean isFind = false;
+			for(int rule_count=templaterule.length-1;rule_count>=0;rule_count--){
+				if(templaterule[rule_count].length()==0){
+					null_num++;
+					continue;
+				}
+				isFind = false;
+				if(e.getConceptMap().containsKey(templaterule[rule_count]))
+				{
+					KeywordGroup kwg = e.getConceptByName(templaterule[rule_count]);
+					getConceptmap(kwg,src,pageId);
+
+					if(!kwg.getResultMaps().containsKey(pageId)){
+						System.err.println(pageId+"找不到\""+templaterule[rule_count]+"\"in\t"+rule);
+					}
+					table_stack.push(kwg.getResultMaps().get(pageId));
+					if(isTest){
+						System.out.print(table_stack.peek().getConceptName()+"\t");
+					}
+					isFind = true;
+				}
+				else if(!isFind&&WebPageAnalyzer.global_concept.containsKey(templaterule[rule_count])){
+					KeywordGroup kwg = WebPageAnalyzer.global_concept.get(templaterule[rule_count]);
+					getConceptmap(kwg,src,pageId);
+
+					if(!WebPageAnalyzer.global_concept.get(templaterule[rule_count]).getResultMaps().containsKey(pageId)){
+						System.err.println(pageId+"找不到（通用）"+templaterule[rule_count]);
+					}
+					table_stack.push(WebPageAnalyzer.global_concept.get(templaterule[rule_count]).getResultMaps().get(pageId));
+					isFind = true;
+					if(isTest)
+						System.out.print(table_stack.peek().getConceptName()+"(通用)"+"\t");
+				}
+				if(!isFind)
+					System.err.println("概念:\""+templaterule[rule_count]+"\"找不到");
+			}
+			if(isTest)
+				System.out.println();
+			if(table_stack.size()<(templaterule.length-null_num)){
+				System.err.println(rule+"概念不全，无法匹配");
+				templates.remove(0);			
+				continue;
+			}
+//			System.out.println("栈大小"+table_stack.size());
+//			for(ConceptTable ct:table_stack){
+//				System.out.println("concept"+ct.getConceptName());
+//			}
+			Matcher templateM = templateP.matcher(rule);
+			while(templateM.find()){
+				op_queue.add(templateM.group());
+			}
+
+//			System.out.print("操作符：");
+//			for(String op_test:op_queue){
+//				System.out.print(op_test+"\t");
+//			}
+//			System.out.print("\r\n");
+			
+			int op_count=0;
+			while(op_count<op_queue.size()){
+				if(op_queue.get(op_count).equals("(")){
+					op_count+=doLittleParentheses(op_queue,op_count,table_stack);
+				}
+				else if(op_queue.get(op_count).equals("[")){
+					op_count+=doMidParentheses(op_queue,op_count,table_stack);
+				}
+				else{
+					op_count+=doPlus(op_queue,op_count,table_stack);
+				}
+			}
+			//某次运算已经为空则直接结束本次匹配
+			if(op_count>op_queue.size()){				
+				templates.remove(0);			
+				continue;
+			}
+			ConceptTable resultTable= table_stack.pop();
+			ArrayList<MatchedResult> resultList = resultTable.getStartResultMaps();
+			t = templates.get(0);
+			for(MatchedResult mr:resultList){
+				mr.setT(t);
+			}
+			if(resultList.size()>0){
+				System.out.println("匹配到模版："+resultTable.getConceptName()+"结果为:"+src.substring(resultList.get(0).getStart(),resultList.get(0).getEnd()));
+				templateName[0]=resultTable.getConceptName();
+				templates.remove(0);
+				return resultList;
+			}
+			templates.remove(0);			
+		}
+		if(isTest)
+			System.out.println("没有匹配到事件");
+		return null;
+		
+		
+		
+			
+//		
+//			Pattern p = Pattern.compile("\\[(.*?)\\]\\(.*?\\)");
+//			Matcher m = p.matcher(templates.get(i).getTemplateRule());
+//			while(m.find())
+//			{
+//				String concept_one =m.group(1);
+//				String concept_two =m.group(2);
+//				KeywordGroup one = null,two=null;
+//				for(KeywordGroup k : templates.get(i).getConcepts())	
+//				{
+//					if(k.getKeywordGroupName().equals(concept_one))
+//					{
+//						one = k;continue;
+//					}
+//					if(k.getKeywordGroupName().equals(concept_two))
+//					{
+//						two = k;
+//					}
+//				}
+//				HashMap<String,MatchedResult> one_maps =one.getStartResultMaps();
+//				HashMap<String,MatchedResult> two_maps =one.getStartResultMaps();	
+//			}
+			
+			
+
+	}
+	
 	public ArrayList<MatchedResult> find(String src,Event e,String pageId,ArrayList<Template> templates) {
 		if(isTest){
 			System.out.println(src+"::::"+e.getEventID());
@@ -192,7 +340,6 @@ public class TempEventMatcher {
 			
 
 	}
-	
 	/**
 	 * @author Bys
 	 * @param op_queue

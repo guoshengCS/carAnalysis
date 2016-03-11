@@ -50,6 +50,9 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import com.whu.nlp.util.Myobject;
+
+import snooway.dao.DataDao;
 import snooway.dao.PoolConection;
 import snooway.dao.PoolConnectCfg;
 import util.AnalysisProperties;
@@ -526,6 +529,7 @@ public class Test implements Callable<String>{
 		writer.close();
 	}
 	public static HashMap<Event,ArrayList<MatchedResult>> extractEvent(Page page){
+		Pattern pattern=PatternAgent.getPattern("不|不能|无法|没有");
 		List<Event> events=WebPageAnalyzer.eventList.getEvents();
 		//System.out.println(events.size());
 		HashMap<Event,ArrayList<MatchedResult>> resultsMap=new HashMap<Event,ArrayList<MatchedResult>>();
@@ -533,14 +537,39 @@ public class Test implements Callable<String>{
 
 			Event e = events.get(i);
 //			try {
-			EventMatcher em = new EventMatcher();
+//			EventMatcher em = new EventMatcher();
+			TempEventMatcher em = new DecEventMatcher();
 				ArrayList<MatchedResult> mrList;
 
 				// ArrayList<KeywordGroup> concepts = e.getConcepts();
 				ArrayList<Template> templates = new ArrayList<Template>(
 						e.getTemplates());
 				ArrayList<MatchedResult> results=null;
-				while ((mrList = em.find(page.getContent(), e, page.getId(), templates)) != null) {
+				String[] templateName=new String[1];
+				while ((mrList = em.find(page.getContent(), e, page.getId(), templates,templateName)) != null) {
+					if (!templateName[0].contains("否定")) {
+						ArrayList<MatchedResult> results2del=new ArrayList<MatchedResult>();
+						for(MatchedResult mr:mrList){
+							DecMatchedResult decmr=(DecMatchedResult)mr;
+							String eventTail="";
+							int start=0,end=0;
+							end=decmr.keywordMRs.get(decmr.keywordMRs.size()-1).getEnd();
+							if (decmr.keywordMRs.size()>1) {
+								start=decmr.keywordMRs.get(decmr.keywordMRs.size()-2).getEnd();
+							}else {
+								start=Math.max(0, decmr.keywordMRs.get(decmr.keywordMRs.size()-1).getStart()-6);
+							}
+							eventTail=page.getContent().substring(start, end);
+							Matcher matcher=pattern.matcher(eventTail);
+							if (matcher.find()) {
+								results2del.add(mr);
+							}
+						}
+						mrList.removeAll(results2del);
+					}
+					if (mrList.size()==0) {
+						continue;
+					}
 					if((results=resultsMap.get(e))==null){
 						resultsMap.put(e, mrList);
 					}else {
@@ -1468,6 +1497,36 @@ public class Test implements Callable<String>{
 
 	}
 	
+	public static void writeData2xls(String fileDirStr)throws Exception{
+		FileOutputStream os=new FileOutputStream(fileDirStr+"/data.xlsx");
+		Workbook workbook=new XSSFWorkbook();
+		Sheet sheet=workbook.createSheet();
+		List<File> files=new ArrayList<File>();
+		File fileDir=new File(fileDirStr+"/data");
+		for(File file:fileDir.listFiles()){
+			files.add(file);
+		}
+		fileDir=new File(fileDirStr+"/newdata");
+		for(File file:fileDir.listFiles()){
+			files.add(file);
+		}
+		int index=0;
+		for(File file:files){
+			StringBuffer text=new StringBuffer();
+			BufferedReader reader=new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf8"));
+			String str=null;
+			while((str=reader.readLine())!=null){
+				text.append(str+"\n");
+			}
+			reader.close();
+			Row row=sheet.createRow(index);
+			Cell cell=row.createCell(0);
+			cell.setCellValue(text.substring(0,text.length()-1));
+			index++;
+		}
+		workbook.write(os);
+		os.close();
+	}
 }
 class DecMatchedResult extends MatchedResult{
 	ArrayList<MatchedResult> keywordMRs=new ArrayList<MatchedResult>();

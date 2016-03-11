@@ -2,6 +2,7 @@ package com.whu.nlp.util;
 
 import java.util.HashMap;
 
+
 public class Myobject
 {
 	
@@ -19,6 +20,7 @@ public class Myobject
 		result.put("airloop", "");
 		result.put("trouble", "");
 		result.put("parts", "");
+		
 	}
 
 	public String toString()

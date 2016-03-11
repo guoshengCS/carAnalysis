@@ -2,60 +2,304 @@
 
 <root> 
   <concepts>
-    <concept name="空调">空调</concept>
-    <concept name="异味">异味 霉味 酸味 汽油味 馊味 臭味 塑料味 刺鼻 味道 氟利昂 有味 油味 发臭 发酸 发霉 味道 发馊 酸腐 霉味 难闻 化学味 化学气味 气味 抹布味 恶臭 变臭 臭 熏人 臭气 土腥味</concept>
-  	<concept name="出风口">风口 出风口 出风 风栏 出风栏</concept>
-  	<concept name="属性">出风 风向 风速 风量</concept>
-  	<concept name="后排">后 后排 后面 背后 后座 后背 二排 </concept>
-  	<concept name="效果">制冷 制热 风速 风向 风量 冷风 暖风 凉风 热风 温风 出风 换气 通风</concept>
-  	<concept name="评价">冷 凉 热 暖 暖和 凉快</concept>
-  	<concept name="自动">自动 智能 聪明</concept>
+  	<concept name="后排">后 后排 后面 背后 后座 后背 二排</concept>
+  	<concept name="前排">前 前排 前面 前头 前座 一排</concept>
+  	<concept name="出风口">出风口 风口 出风</concept>
+  	<concept name="异味">异味 霉味 酸味 汽油味 馊味 臭味 塑料味 刺鼻 味道 氟利昂 有味 油味 发臭 发酸 发霉 味道 发馊 酸腐 霉味 难闻 化学味 化学气味 气味 抹布味</concept>
   	<concept name="噪音">异响 异音 震动声 噪音 噪声 音大 音很大 音特大 音特别大 吵 响声 吱吱声 滋滋声 咕咕声 杂音 杂声 响很多 轰轰声 轰轰轰 吃吃</concept>
-  	<concept name="差评">慢 不好 差 小 弱 太差 很差 不理想 不满意 不太好 一般 不行 不很好 不是太好</concept>
+  	<concept name="出口">出风口 热风出口 冷风出口 空调出口</concept>
+  	<concept name="快">快 很快 特快 特别快</concept>
+  	<concept name="大">大 很大 特大 特别大 足</concept>
+  	<concept name="小">小 很小 太小 特别小 相当小 上不来 不足 不够</concept>
+  	<concept name="慢">慢 太慢 很慢 特别慢 相当慢 起不来 上不来</concept>
+  	<concept name="一般差评">差 坏 太差 太坏 不好 不行 差劲 不怎么样 垃圾 恶心 坑爹 不怎么好 不怎么行 不太好</concept>
+  	<concept name="一般好评">好 很好 不错 特好 挺好 还可以 特别好 特好 令人满意 满意 给力 合理 人性化 舒适 舒服 正常 合格 超赞 赞一个</concept>
+  	<concept name="出风">出风 出热风 出冷风</concept>
+  	<concept name="通气">换气 通气 通风 空气 循环</concept>
+  	<concept name="制冷">制冷 冷风 凉风 凉气 冷气</concept>
+  	<concept name="制热">制热 热风 暖风 暖气</concept>
+  	<concept name="出风加出口">出风 出热风 出冷风 出风口 热风出口 冷风出口 空调出口</concept>
+  	<concept name="空调加出口">空调 出风口 热风出口 冷风出口 空调出口</concept>
+  	<concept name="质量">质量 性能 设计 效果</concept>
+  	<concept name="风量">风量</concept>
+  	<concept name="风速">风速</concept>
+  	
+  	<concept name="智能">自动 智能 聪明</concept>
+  	
+  	<concept name="内控">滤芯 压缩机 电机 轴承 冷凝器 膨胀阅 节流孔 干燥罐 蒸发器 循环系统 橡胶管 软管 制冷剂 离合器 冷凝风扇 电磁阀 怠速器 控制系统 控制器 积累器 回气管 蒸发箱 管路 进风管 蒸发箱 滤尘网 低压管 泵 空调管 空调泵</concept>
+  	<concept name="外观">风扇 扇叶 面板 出风口 风口 风栏 风挡 玻璃 叶片 风门</concept>
+  	
   	<concept name="否定">不|不能|无法|没有</concept>
-  	<concept name="一般故障">故障 有问题 有毛病 有病 不工作 无效 不出风 小问题 问题</concept>
-  	<concept name="一般效果">效果 性能 效能 感觉 质量</concept>
-  	<concept name="空气循环">车内空气 后排空气 后座空气 前排空气 前座空气 空气循环 空气内循环 空调内循环 空气外循环 空调外循环 空气内外循环 空调内外循环 空气模式 循环模式 通风模式 通风效果 通风设置 驻车通风</concept>
-  	<concept name="配件">风扇 扇叶 滤芯 面板 压缩机 风门 电机 出风口 风口 风栏 轴承 风挡 玻璃 冷凝器 膨胀阅 节流孔 干燥罐 蒸发器 循环系统 橡胶管 软管 制冷剂 离合器 冷凝风扇 电磁阀 怠速器 控制系统 控制器 积累器 回气管 蒸发箱 管路 进风管 蒸发箱 滤尘网 低压管 泵 空调管 空调泵 叶片</concept>
+  	<concept name="空调">空调</concept>
+  	<concept name="程度">很 特别 非常</concept>
+  	
   </concepts>
   <eventAdd name="空调整体评价" id="1"> 
   	
   </eventAdd>
   <eventAdd name="空调异味" id="2">
-  	<template name="000">空调+异味</template>
-  	<template name="000">出风口+异味</template>
+  	<eventAdd name="空调异味_负面" id="22">
+  		<eventAdd name="空调异味_负面_前排" id="221">
+  			<template name="000">前排+空调+异味</template>
+  			<template name="000">前排+出风口+异味</template>
+  		</eventAdd>
+  		<eventAdd name="空调异味_负面_后排" id="222">
+  			<template name="000">后排+空调+异味</template>
+  			<template name="000">后排+出风口+异味</template>
+  		</eventAdd>
+  	</eventAdd>
   </eventAdd>
+
   <eventAdd name="空调出风口" id="3">
-  	<template name="000">空调+出风口</template>
-  	<template name="000">空调+属性</template>
-  	<template name="000">出风口</template>
+  	<eventAdd name="空调出风口_正面" id="31">
+	  	<eventAdd name="空调出风口_正面_声音" id="311">
+	  		<template name="000">出风加出口+否定+噪音</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_正面_气味" id="312">
+	  		<template name="000">出风加出口+否定+异味</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_正面_出风" id="313">
+	  		<template name="000">出风+快</template>
+	  		<template name="000">出风+一般好评</template>
+	  		<template name="000">出风+否定+一般差评</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_正面_风速" id="314">
+	  		<template name="000">空调+风速+快</template>
+	  		<template name="000">空调+风速+大</template>
+	  		<template name="000">空调+风速+一般好评</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_正面_风量" id="315">
+	  		<template name="000">空调+风量+大</template>
+	  		<template name="000">空调+风量+一般好评</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_正面_质量" id="316">
+	  		<template name="000">出风加出口+质量+一般好评</template>
+	  		<template name="000">出风加出口+质量+否定+一般差评</template>
+	  	</eventAdd>
+  	</eventAdd>
+  	<eventAdd name="空调出风口_负面" id="32">
+	  	<eventAdd name="空调出风口_负面_声音" id="321">
+	  		<template name="000">出风加出口+噪音</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_负面_气味" id="322">
+	  		<template name="000">出风加出口+异味</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_负面_出风" id="323">
+	  		<template name="000">出风+慢</template>
+	  		<template name="000">出风+一般差评</template>
+	  		<template name="000">出风+否定+一般好评</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_负面_风速" id="324">
+	  		<template name="000">空调+风速+慢</template>
+	  		<template name="000">空调+风速+小</template>
+	  		<template name="000">空调+风速+一般差评</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_负面_风量" id="325">
+	  		<template name="000">空调+风量+小</template>
+	  		<template name="000">空调+风量+一般差评</template>
+	  	</eventAdd>
+	  	<eventAdd name="空调出风口_负面_质量" id="326">
+	  		<template name="000">出风加出口+质量+一般差评</template>
+	  		<template name="000">出风加出口+质量+否定+一般好评</template>
+	  	</eventAdd>
+  	</eventAdd>
   </eventAdd>
-  <eventAdd name="后排空调效果" id="4">
-  	<template name="000">后排+空调</template>
-  	<template name="000">后排+出风口</template>
-  	<template name="000">后排+效果</template>
-  	<template name="000">后排+评价</template>
-  </eventAdd>	
-  <eventAdd name="自动空调" id="5">
-  	<template name="000">空调+自动</template>
-  	<template name="000">自动+空调</template>
+  
+  <eventAdd name="后排空调" id="4">
+  	<eventAdd name="后排空调_正面" id="41">
+  		<eventAdd name="后排空调_正面_声音" id="411">
+  			<template name="000">后排+空调+否定+噪音</template>
+  			<template name="000">后排+出风口+否定+噪音</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_正面_气味" id="412">
+  			<template name="000">后排+空调+否定+异味</template>
+  			<template name="000">后排+出风口+否定+异味</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_正面_制冷" id="413">
+  			<template name="000">后排+制冷+快</template>
+  			<template name="000">后排+制冷+一般好评</template>
+  			<template name="000">后排+制冷+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_正面_制热" id="414">
+  			<template name="000">后排+制热+快</template>
+  			<template name="000">后排+制热+一般好评</template>
+  			<template name="000">后排+制热+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_正面_出风" id="415">
+  			<template name="000">后排+出风+快</template>
+  			<template name="000">后排+出风+一般好评</template>
+  			<template name="000">后排+出风+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_正面_通气" id="416">
+  			<template name="000">后排+通气+一般好评</template>
+  			<template name="000">后排+通气+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_正面_质量" id="417">
+  			<template name="000">后排+空调+质量+一般好评</template>
+  			<template name="000">后排+空调+质量+否定+一般差评</template>
+  		</eventAdd>
+  	</eventAdd>
+  	<eventAdd name="后排空调_负面" id="42">
+  		<eventAdd name="后排空调_负面_声音" id="421">
+  			<template name="000">后排+空调+噪音</template>
+  			<template name="000">后排+出风口+噪音</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_负面_气味" id="422">
+  			<template name="000">后排+空调+异味</template>
+  			<template name="000">后排+出风口+异味</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_负面_制冷" id="423">
+  			<template name="000">后排+制冷+慢</template>
+  			<template name="000">后排+制冷+一般差评</template>
+  			<template name="000">后排+制冷+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_负面_制热" id="424">
+  			<template name="000">后排+制热+慢</template>
+  			<template name="000">后排+制热+一般差评</template>
+  			<template name="000">后排+制热+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_负面_出风" id="425">
+  			<template name="000">后排+出风+慢</template>
+  			<template name="000">后排+出风+一般差评</template>
+  			<template name="000">后排+出风+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_负面_通气" id="426">
+  			<template name="000">后排+通气+一般差评</template>
+  			<template name="000">后排+通气+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="后排空调_负面_质量" id="427">
+  			<template name="000">后排+空调+质量+一般差评</template>
+  			<template name="000">后排+空调+质量+否定+一般好评</template>
+  		</eventAdd>
+  	</eventAdd>
   </eventAdd>
-  <eventAdd name="空气循环模式" id="6">
-  	<template name="000">空气循环</template>
+  
+  <eventAdd name="智能空调" id="5">
+  	<eventAdd name="智能空调_正面" id="51">
+  		<eventAdd name="智能空调_正面_智能" id="511">
+  			<template name="000">空调+程度+智能</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_声音" id="512">
+  			<template name="000">智能+空调+否定+噪音</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_气味" id="513">
+  			<template name="000">智能+空调+否定+异味</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_制冷" id="514">
+  			<template name="000">智能+制冷+快</template>
+  			<template name="000">智能+制冷+一般好评</template>
+  			<template name="000">智能+制冷+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_制热" id="515">
+  			<template name="000">智能+制热+快</template>
+  			<template name="000">智能+制热+一般好评</template>
+  			<template name="000">智能+制热+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_出风" id="516">
+  			<template name="000">智能+出风+快</template>
+  			<template name="000">智能+出风+一般好评</template>
+  			<template name="000">智能+出风+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_通气" id="517">
+  			<template name="000">智能+空调+通气+一般好评</template>
+  			<template name="000">智能+空调+通气+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_正面_质量" id="518">
+  			<template name="000">智能+空调+质量+一般好评</template>
+  			<template name="000">智能+空调+质量+否定+一般差评</template>
+  		</eventAdd>
+  	</eventAdd>
+  	<eventAdd name="智能空调_负面" id="52">
+  		<eventAdd name="智能空调_负面_智能" id="521">
+  			<template name="000">空调+否定+智能</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_声音" id="522">
+  			<template name="000">智能+空调+噪音</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_气味" id="523">
+  			<template name="000">智能+空调+异味</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_制冷" id="524">
+  			<template name="000">智能+制冷+慢</template>
+  			<template name="000">智能+制冷+一般差评</template>
+  			<template name="000">智能+制冷+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_制热" id="525">
+  			<template name="000">智能+制热+慢</template>
+  			<template name="000">智能+制热+一般差评</template>
+  			<template name="000">智能+制热+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_出风" id="526">
+  			<template name="000">智能+出风+慢</template>
+  			<template name="000">智能+出风+一般差评</template>
+  			<template name="000">智能+出风+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_通气" id="527">
+  			<template name="000">智能+空调+通气+一般差评</template>
+  			<template name="000">智能+空调+通气+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="智能空调_负面_质量" id="528">
+  			<template name="000">智能+空调+质量+一般差评</template>
+  			<template name="000">智能+空调+质量+否定+一般好评</template>
+  		</eventAdd>
+  	</eventAdd>
   </eventAdd>
+  
   <eventAdd name="空调故障" id="7">
-  	<template name="000">否定+效果</template>
-  	<template name="000">效果+差评</template>
-  	<template name="000">空调+噪音</template>
-  	<template name="000">空调+异味</template>
-  	<template name="000">空调+一般故障</template>
-  	<template name="000">空调+一般效果+差评</template>
-  	<template name="000">出风口+噪音</template>
-  	<template name="000">出风口+异味</template>
-  	<template name="000">出风口+一般故障</template>
-  	<template name="000">出风口+一般效果+差评</template>
+  	<eventAdd name="空调故障_负面" id="72">
+  		<eventAdd name="空调故障_负面_味道" id="721">
+  			<template name="000">空调加出口+异味</template>
+  		</eventAdd>
+  		<eventAdd name="空调故障_负面_声音" id="722">
+  			<template name="000">空调加出口+噪音</template>
+  		</eventAdd>
+  		<eventAdd name="空调故障_负面_制冷" id="723">
+  			<template name="000">空调+否定+制冷</template>
+  			<template name="000">空调+制冷+一般差评</template>
+  			<template name="000">空调+制冷+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="空调故障_负面_制热" id="724">
+  			<template name="000">空调+否定+制热</template>
+  			<template name="000">空调+制热+一般差评</template>
+  			<template name="000">空调+制热+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="空调故障_负面_出风" id="725">
+  			<template name="000">空调加出口+否定+出风</template>
+  			<template name="000">空调加出口+出风+一般差评</template>
+  			<template name="000">空调加出口+出风+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="空调故障_负面_通气" id="726">
+  			<template name="000">空调加出口+通气+一般好评</template>
+  			<template name="000">空调加出口+通气+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="空调故障_负面_质量" id="727">
+  			<template name="000">空调+质量+一般差评</template>
+  			<template name="000">空调+质量+否定+一般好评</template>
+  		</eventAdd>
+  	</eventAdd>
   </eventAdd>
+  
   <eventAdd name="空调配件" id="8">
-  	<template name="000">空调+配件</template>
+  	<eventAdd name="空调配件_正面" id="81">
+  		<eventAdd name="空调配件_正面_外观" id="811">
+  			<template name="000">空调+外观+一般好评</template>
+  			<template name="000">空调+外观+否定+一般差评</template>
+  		</eventAdd>
+  		<eventAdd name="空调配件_正面_内控" id="812">
+  			<template name="000">空调+内控+一般好评</template>
+  			<template name="000">空调+内控+否定+一般差评</template>
+  		</eventAdd>
+  	</eventAdd>
+  	<eventAdd name="空调配件_负面" id="82">
+  		<eventAdd name="空调配件_负面_外观" id="821">
+  			<template name="000">空调+外观+一般差评</template>
+  			<template name="000">空调+外观+否定+一般好评</template>
+  		</eventAdd>
+  		<eventAdd name="空调配件_负面_内控" id="822">
+  			<template name="000">空调+内控+一般差评</template>
+  			<template name="000">空调+内控+否定+一般好评</template>
+  		</eventAdd>
+  	</eventAdd>
   </eventAdd>
+  
 </root>
