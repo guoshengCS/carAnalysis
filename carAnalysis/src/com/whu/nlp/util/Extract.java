@@ -40,8 +40,14 @@ public class Extract
 		eventID2Name.put(6, "airloop");
 		eventID2Name.put(7, "trouble");
 		eventID2Name.put(8, "parts");
+		try {
+			Class.forName("dataAnalysis.Test");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public Myobject extract(String input) throws Exception
+	public Myobject extract(String input) 
 	{
 		Myobject reObject = new Myobject(); 
 		reObject.init();
@@ -91,14 +97,64 @@ public class Extract
 			}
 		}
 	}
-	public List<CarEvent> extractBat(List<String> inputs)throws Exception{
+	public List<CarEvent> extractBat(List<String> inputs){
 		List<CarEvent> results=new ArrayList<CarEvent>();
 		for(String input:inputs){
 			Myobject eventResults=extract(input);
 			for(String eventInfoStr:eventResults.getResult().keySet()){
 				String[] eventInfos=eventInfoStr.split(" ");
 				String objectID=UUID.randomUUID().toString().replaceAll("-", "");
-				results.add(new CarEvent(objectID, eventInfos[1], eventResults.getResult().get(eventInfoStr), Integer.parseInt(eventInfos[2])));
+				results.add(new CarEvent(objectID, "","",eventInfos[1], eventResults.getResult().get(eventInfoStr), Integer.parseInt(eventInfos[2])));
+			}
+		}
+		return results;
+	}
+	public List<CarEvent> extractBatfile(List<MyFile> inputs){
+		DataDao dao=WebPageAnalyzer.da;
+		
+		List<CarEvent> results=new ArrayList<CarEvent>();
+		List<Event> events=WebPageAnalyzer.eventList.getEvents();
+		for(MyFile input:inputs){
+			String pageID=UUID.randomUUID().toString().replaceAll("-", "");
+			Page page=new Page();
+			page.setId(pageID);
+			page.setContent(input.content);
+			for(Event event:events){
+				if (event.getParentEventId()>0)
+					continue;
+				ArrayList<MatchedResult> eventResult=Test.extractEvent(page, event);
+				if (eventResult.size()>0) {
+					boolean flag=false;
+					for(Event subEvent:events){
+						if ((subEvent.getParentEventId()+"").startsWith(event.getEventID()+"")) {
+							ArrayList<MatchedResult> subEventResult=Test.extractEvent(page, subEvent);
+							if (subEventResult.size()==0)
+								continue;
+							HashMap<Event,ArrayList<MatchedResult>> eventResults1class=new HashMap<Event, ArrayList<MatchedResult>>();
+							eventResults1class.put(subEvent, subEventResult);
+							String labelText=Test.lableText(input.getContent(), eventResults1class);
+							String id=UUID.randomUUID().toString().replaceAll("-", "");
+							results.add(new CarEvent(id, input.getFileId(), event.getEventName(), subEvent.getEventName(), labelText, subEvent.getStatus()));
+							dao.insertCarEvent(id, input.getFileId(), event.getEventName(), subEvent.getEventName(), labelText, subEvent.getStatus());
+							flag=true;
+						}
+					}
+					if (!flag) {
+						HashMap<Event,ArrayList<MatchedResult>> eventResults1class=new HashMap<Event, ArrayList<MatchedResult>>();
+						eventResults1class.put(event, eventResult);
+						String labelText=Test.lableText(input.getContent(), eventResults1class);
+						String id=UUID.randomUUID().toString().replaceAll("-", "");
+						results.add(new CarEvent(id, input.getFileId(), event.getEventName(), "", labelText, -1));
+						dao.insertCarEvent(id, input.getFileId(), event.getEventName(), "", labelText, -1);
+					}
+				}
+			}
+			
+			for (int i = 0; i < events.size() ; i++) {
+				events.get(i).cleanMap(page.getId());
+			}
+			for (String kName : WebPageAnalyzer.global_concept.keySet()) {
+				WebPageAnalyzer.global_concept.get(kName).getResultMaps().remove(page.getId());
 			}
 		}
 		return results;
@@ -106,9 +162,10 @@ public class Extract
 	public static void main(String[] args) throws Exception
 	{
 		Extract extract=new Extract();
-		List<String> inputs=new ArrayList<String>();
-		inputs.add("前排空调异味");//新凯越空调出风口风量小。 请教大家一个问题空调很智能
-		System.out.println(extract.extractBat(inputs));
+		List<MyFile> inputs=new ArrayList<MyFile>();
+		MyFile input=new MyFile("1", "空调异味");//后排空调有异味
+		inputs.add(input);//新凯越空调出风口风量小。 请教大家一个问题空调很智能
+		System.out.println(extract.extractBatfile(inputs));
 //		Test.writeData2xls("E:/whucsgs/实验室/汽车项目");
 //		extract.extractBat("newdata");
 //		Myobject myobject=extract.extract("新凯越空调出风口风量小。 请教大家一个问题空调很智能");
@@ -117,23 +174,4 @@ public class Extract
 //		System.out.println(myobject.getResult().get("parts"));
 		
 	}
-}
-class CarEvent{
-	String id;
-	String eventName;
-	String content;
-	int polarity;
-	public CarEvent(String id, String eventName, String content, int polarity) {
-		super();
-		this.id = id;
-		this.eventName = eventName;
-		this.content = content;
-		this.polarity = polarity;
-	}
-	@Override
-	public String toString() {
-		return "CarEvent [id=" + id + ", eventName=" + eventName + ", content="
-				+ content + ", polarity=" + polarity + "]";
-	}
-	
 }

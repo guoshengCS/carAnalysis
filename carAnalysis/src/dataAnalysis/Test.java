@@ -528,6 +528,44 @@ public class Test implements Callable<String>{
 		reader.close();
 		writer.close();
 	}
+	public static ArrayList<MatchedResult> extractEvent(Page page,Event e){
+		Pattern pattern=PatternAgent.getPattern("不|不能|无法|没有");
+		ArrayList<MatchedResult> eventResults=new ArrayList<MatchedResult>();
+		TempEventMatcher em = new DecEventMatcher();
+		ArrayList<MatchedResult> mrList;
+
+		// ArrayList<KeywordGroup> concepts = e.getConcepts();
+		ArrayList<Template> templates = new ArrayList<Template>(
+				e.getTemplates());
+		String[] templateName=new String[1];
+		while ((mrList = em.find(page.getContent(), e, page.getId(), templates,templateName)) != null) {
+			if (!templateName[0].contains("否定")) {
+				ArrayList<MatchedResult> results2del=new ArrayList<MatchedResult>();
+				for(MatchedResult mr:mrList){
+					DecMatchedResult decmr=(DecMatchedResult)mr;
+					String eventTail="";
+					int start=0,end=0;
+					end=decmr.keywordMRs.get(decmr.keywordMRs.size()-1).getEnd();
+					if (decmr.keywordMRs.size()>1) {
+						start=decmr.keywordMRs.get(decmr.keywordMRs.size()-2).getEnd();
+					}else {
+						start=Math.max(0, decmr.keywordMRs.get(decmr.keywordMRs.size()-1).getStart()-6);
+					}
+					eventTail=page.getContent().substring(start, end);
+					Matcher matcher=pattern.matcher(eventTail);
+					if (matcher.find()) {
+						results2del.add(mr);
+					}
+				}
+				mrList.removeAll(results2del);
+			}
+			if (mrList.size()==0) {
+				continue;
+			}
+			eventResults.addAll(mrList);
+		}
+		return eventResults;
+	}
 	public static HashMap<Event,ArrayList<MatchedResult>> extractEvent(Page page){
 		Pattern pattern=PatternAgent.getPattern("不|不能|无法|没有");
 		List<Event> events=WebPageAnalyzer.eventList.getEvents();
